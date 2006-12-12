@@ -1,3 +1,6 @@
+2006-12-12
+* Removed rails from vendor directory.
+
 2006-11-27
 * For purposes of counting, the HAVING statement is now extracted from the :group option as a convenience for users that are hacking around the lack of a AR#find :having option. Thanks to Gavin Joyce for pointing out this usage of :group. More info here: http://www.mail-archive.com/rails-core@lists.rubyonrails.org/msg01876.html.
 * For purposes of counting, the :select option is now ignored in favor of table_name.id. Thanks to Aron Atkins for reporting a bug that led to this fix.
