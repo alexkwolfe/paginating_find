@@ -14,7 +14,7 @@ module PaginatingFind
 
   module ClassMethods
     DEFAULT_PAGE_SIZE = 10
-    VALID_COUNT_OPTIONS = [:select, :conditions, :joins, :distinct, :include, :having]
+    VALID_COUNT_OPTIONS = [:select, :conditions, :joins, :distinct, :include, :having, :group]
     
     # Enhancements to Base find method to support record paging. The :page option
     # is used to specify additional paging options.  The supported :page options are:
@@ -57,8 +57,11 @@ module PaginatingFind
         auto = page_options[:auto] || false
         
         # Specify :count to prevent a count query.
-        count = page_options.delete(:count)
-        count = count(collect_count_options(options)) unless count
+        unless (count = page_options.delete(:count))
+          count = count(collect_count_options(options))
+          count = count.length if options[:group]
+        end
+        #count = count(collect_count_options(options)) unless count
         
         # Total size is either count or limit, whichever is less
         limit = options.delete(:limit)
@@ -113,7 +116,7 @@ module PaginatingFind
         rtn[:having] = having[1] if having.size == 2 # 'HAVING' was tacked on to the :group option.
       end
       
-      # Eliminate count options like :group, :order, :limit, :offset.
+      # Eliminate count options like :order, :limit, :offset.
       rtn.delete_if { |k, v| !VALID_COUNT_OPTIONS.include?(k.to_sym) }
       rtn
     end

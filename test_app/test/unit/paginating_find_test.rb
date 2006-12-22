@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/abstract_test.rb'
 
 class PaginatingFindTest < Test::Unit::TestCase
-  fixtures :authors, :edits, :articles
+  #fixtures :authors, :edits, :articles
   
   def test_should_auto_paginate
     h = ArticleHelper.new(112)
@@ -36,24 +36,6 @@ class PaginatingFindTest < Test::Unit::TestCase
       results.each {} 
       assert_equal 1, results.page
       end
-  end
-  
-  def test_should_paginate_with_group
-    h = ArticleHelper.new(20)
-    h.find_articles(:all, :conditions => 'name >= 1 and name <= 20', :order => 'name ASC', :group => "name", :page => {:size => 10}) do |results|
-      assert_equal 10, results.page_size
-      assert_equal 20, results.size
-      results.each {} 
-    end
-  end
-  
-  def test_should_paginate_with_group_order
-    h = ArticleHelper.new(20)
-    h.find_articles(:all, :conditions => 'name >= 1 and name <= 20', :order => 'name ASC', :group => "name", :order => "id ASC", :page => {:size => 10}) do |results|
-      assert_equal 10, results.page_size
-      assert_equal 20, results.size
-      results.each {} 
-    end
   end
   
   def test_should_respect_limit
