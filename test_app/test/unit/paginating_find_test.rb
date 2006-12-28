@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/abstract_test.rb'
 
 class PaginatingFindTest < Test::Unit::TestCase
-  #fixtures :authors, :edits, :articles
+  fixtures :authors, :edits, :articles
   
   def test_should_auto_paginate
     h = ArticleHelper.new(112)
