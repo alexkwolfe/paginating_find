@@ -61,7 +61,6 @@ module PaginatingFind
           count = count(collect_count_options(options))
           count = count.length if options[:group]
         end
-        #count = count(collect_count_options(options)) unless count
         
         # Total size is either count or limit, whichever is less
         limit = options.delete(:limit)
@@ -105,7 +104,7 @@ module PaginatingFind
     
     def collect_count_options(options)
       rtn = {}.merge(options)
-      rtn[:select] = "#{table_name}.id"
+      rtn[:select] = "#{table_name}.#{primary_key}"
       
       # AR::Base#find does not support :having, but some folks tack it on to the :group option,
       # and it is supported by calculations, so we'll support it here.
