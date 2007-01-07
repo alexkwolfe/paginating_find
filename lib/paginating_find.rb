@@ -22,7 +22,7 @@ module PaginatingFind
     # * <tt>:size</tt>: Number of records in each page of results. Defaults to 1/10
     #                   the total size if total size > 10, otherwise defaults to 1.
     # * <tt>:current</tt>: The current page. Optional, defaults to the first page: 1.
-    # * <tt>:first</tt>: The first page. Optional, defaults to the current page.
+    # * <tt>:first</tt>: The first page. Optional, defaults to page 1.
     # * <tt>:auto</tt>: Automatically load the next page during invocation of #each. Defaults to false.
     # * <tt>:count</tt>: The total record count used to determine the number of pages
     #                    to be loaded. Optional. If not specified, the plugin will
@@ -53,7 +53,7 @@ module PaginatingFind
         # The :page option was specified, so page the query results
         raise ArgumentError, ":offset option is not supported when paging results" if options[:offset]
         current = page_options[:current] || 1
-        first = page_options[:first] || current
+        first = page_options[:first] || 1
         auto = page_options[:auto] || false
         
         # Specify :count to prevent a count query.
