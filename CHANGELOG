@@ -1,4 +1,7 @@
-2007-07-01
+2007-01-24
+* Added paging_helper that provides paginating_links and paginating_links_each to ActionView::Base. Special thanks to Benjamin Curtis and Twenty-First Century Music (http://21cmusic.com/)!
+
+2007-01-07
 * :first now defaults to 1 rather than the value of :page. Thanks to Jack Baty for bringing this to my attention.
 
 2006-12-28

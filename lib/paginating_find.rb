@@ -1,4 +1,5 @@
 require 'paging_enumerator'
+require 'paging_helper'
 
 module PaginatingFind
       
