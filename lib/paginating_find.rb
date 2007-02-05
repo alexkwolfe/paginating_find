@@ -53,7 +53,7 @@ module PaginatingFind
       if page_options
         # The :page option was specified, so page the query results
         raise ArgumentError, ":offset option is not supported when paging results" if options[:offset]
-        current = page_options[:current] || 1
+        current = page_options[:current] && page_options[:current].to_i > 0 ? page_options[:current] : 1
         first = page_options[:first] || 1
         auto = page_options[:auto] || false
         

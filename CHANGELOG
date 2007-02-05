@@ -1,5 +1,8 @@
+2007-02-05
+* :current < 1 is now gracefully handled.  Thanks again to Benjamin Curtis and 21st Century Music.
+
 2007-01-24
-* Added paging_helper that provides paginating_links and paginating_links_each to ActionView::Base. Special thanks to Benjamin Curtis and Twenty-First Century Music (http://21cmusic.com/)!
+* Added paging_helper that provides paginating_links and paginating_links_each to ActionView::Base. Special thanks to Benjamin Curtis and 21st Century Music (http://21cmusic.com/)!
 
 2007-01-07
 * :first now defaults to 1 rather than the value of :page. Thanks to Jack Baty for bringing this to my attention.
