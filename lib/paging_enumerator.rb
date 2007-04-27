@@ -141,7 +141,25 @@ class PagingEnumerator
 
   # Load the next page using the callback
   def load_page
+    raise "Cannot load page because callback is not available. Has this enumerator been serialized?" unless @callback
     self.results = @callback.call(page)
+  end
+  
+  def _dump(depth)
+    load_page
+   Marshal.dump([results, page_size, size, false, page, first_page])
+  end
+  
+  def _load
+    Marshal.load()
+  end
+  
+  def PagingEnumerator._load(str)
+    params = Marshal.load(str)
+    results = params.shift
+    e = PagingEnumerator.new(*params)
+    e.results = results
+    e
   end
     
 end

@@ -3,6 +3,18 @@ require File.dirname(__FILE__) + '/abstract_test.rb'
 class PaginatingFindTest < Test::Unit::TestCase
   fixtures :authors, :edits, :articles
   
+  def test_should_not_bonk_on_marshal_dump
+    results = Article.find(:all, :page => {:size => 2})
+    Marshal.dump(results)
+  end
+  
+  def test_should_preserve_enumerator_stats_on_marshal_load
+    results = Article.find(:all, :page => {:size => 2})
+    loaded = Marshal.load(Marshal.dump(results))
+    assert_equal 2, loaded.page_size
+    assert_equal Article.count, loaded.size
+  end
+  
   def test_should_auto_paginate
     h = ArticleHelper.new(112)
     h.find_articles(:all, :page => {:size => 10, :auto => true}) do |results|
@@ -77,6 +89,7 @@ class PaginatingFindTest < Test::Unit::TestCase
                            :page => {:size => 10})
     assert_equal 1, results.size
     assert_equal 10, results.page_size
+    assert_equal authors(:alex), results.to_a.first.author
   end
   
   def test_should_correctly_count_through_associations
