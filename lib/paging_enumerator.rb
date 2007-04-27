@@ -150,10 +150,6 @@ class PagingEnumerator
    Marshal.dump([results, page_size, size, false, page, first_page])
   end
   
-  def _load
-    Marshal.load()
-  end
-  
   def PagingEnumerator._load(str)
     params = Marshal.load(str)
     results = params.shift
