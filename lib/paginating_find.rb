@@ -7,8 +7,7 @@ module PaginatingFind
     base.extend(ClassMethods)
     base.class_eval do
       class << self
-        alias_method :original_find, :find unless method_defined?(:original_find)
-        alias_method :find, :paginating_find
+        alias_method_chain :find, :pagination
       end
     end
   end
@@ -47,7 +46,7 @@ module PaginatingFind
     #                           :current => 1, 
     #                           :auto => true})
     #
-    def paginating_find(*args)
+    def find_with_pagination(*args)
       options = extract_options_from_args!(args) 
       page_options = options.delete(:page) || (args.delete(:page) ? {} : nil)
       if page_options
@@ -86,16 +85,16 @@ module PaginatingFind
             # :with_scope options were specified, so 
             # the with_scope method must be invoked
             self.with_scope(cached_scoped_methods) do
-              original_find(*(args << options))
+              find_without_pagination(*(args << options))
             end
           else
-            original_find(*(args << options))
+            find_without_pagination(*(args << options))
           end
         end
       else
         # The :page option was not specified, so invoke the
         # usual AR::Base#find method
-        original_find(*(args << options))
+        find_without_pagination(*(args << options))
       end
     end
     

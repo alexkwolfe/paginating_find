@@ -1,3 +1,6 @@
+2007-5-7
+* Now uses alias_method_chain. Thanks to Jeremy Larkin for the patch.
+
 2007-4-27
 * PagingEnumerator now supports Marshal.dump and Marshal.load. When marshaled, the enumerator loses its callback, so :auto => true is not supported in this scenario.
 
