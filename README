@@ -1,3 +1,4 @@
+Visit http://cardboardrocket.com/pages/paginating_find for more documentation.
 
 This plugin makes it easy to page through your model instances by enhancing the default ActiveRecord::Base#find method.  In general, you can expect pagination to work with the standard #find options, including :conditions, :group, :order, :limit, and :include.  To activate paging, just specify the :page option.  You may also provide additional paging options that will control the behavior of the enumerator returned by the #find method.  The following options are supported:
 
