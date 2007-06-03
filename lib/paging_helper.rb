@@ -10,7 +10,7 @@ module PaginatingFind
 
       paginating_links_each(paginator, options) do |n|
         params[name] = n
-        link_to(n.to_s, params, html_options)
+        link_to(n, params, html_options)
       end
     end
 

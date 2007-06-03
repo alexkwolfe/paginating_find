@@ -89,11 +89,7 @@ class PagingEnumerator
   end
   
   def next_page
-    if page >= page_count
-      nil
-    else
-      page + 1
-    end
+    page >= page_count ? nil : page + 1
   end
   
   # Move to the previous page if auto paging is disabled.
@@ -106,11 +102,7 @@ class PagingEnumerator
   end
   
   def previous_page
-    if page == first_page
-      nil
-    else
-      page - 1
-    end
+    page == first_page ? nil : page - 1
   end
   
   def first_item
