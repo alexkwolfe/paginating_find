@@ -103,7 +103,7 @@ class PaginatingFindTest < Test::Unit::TestCase
   end
   
   def test_should_respect_scope
-    Article.with_scope(:find => { :conditions => "name = 1" }) do
+    Article.find_with_scope({ :conditions => "name = 1" }) do
       h = ArticleHelper.new(20)
       h.find_articles(:all, :page => {:size => 10}) do |results|
         assert_equal 1, results.size
@@ -115,7 +115,7 @@ class PaginatingFindTest < Test::Unit::TestCase
   
   def test_should_respect_scope_with_include
     h = ArticleHelper.new(20)
-    Article.with_scope(:find => { :conditions => "articles.name >= 1 and articles.name <= 3" }) do
+    Article.find_with_scope({:conditions => "articles.name >= 1 and articles.name <= 3" }) do
       h.find_articles(:all, :include => [:author, :edits], :page => {:size => 10, :current => 1, :first => 1}, :order => "articles.name ASC") do |results|
         assert_equal 3, results.size
         assert_equal 3, results.to_a.size
@@ -126,8 +126,8 @@ class PaginatingFindTest < Test::Unit::TestCase
   
   def test_should_respect_nested_scope
     h = ArticleHelper.new(20)
-    Article.with_scope(:find => { :conditions => "name = 1" }) do
-      Article.with_scope(:find => { :conditions => "name = 2" }) do
+    Article.find_with_scope({ :conditions => "name = 1" }) do
+      Article.find_with_scope({ :conditions => "name = 2" }) do
         h.find_articles(:all, :page => {:size => 10}) do |results|
           assert_equal 0, results.size
           assert_equal 0, results.to_a.size
@@ -141,7 +141,7 @@ class PaginatingFindTest < Test::Unit::TestCase
   def test_should_respect_out_of_scope_scope
     results = nil
     (1..20).each { |n| Article.create(:name => n, :author_id => 1) }
-    Article.with_scope(:find => { :conditions => "name >= 1 and name <= 15" }) do
+    Article.find_with_scope({ :conditions => "name >= 1 and name <= 15" }) do
       results = Article.find(:all, :page => {:size => 10, :auto => true})
     end
     assert_equal 10, results.page_size
@@ -152,7 +152,7 @@ class PaginatingFindTest < Test::Unit::TestCase
   def test_should_respect_out_of_scope_scope_with_include
     results = nil
     (1..20).each { |n| Article.create(:name => n, :author_id => 1) }
-    Article.with_scope(:find => { :conditions => "articles.name >= 1 and articles.name <= 15 and authors.id = 1", :include => [:author, :edits]}) do
+    Article.find_with_scope({ :conditions => "articles.name >= 1 and articles.name <= 15 and authors.id = 1", :include => [:author, :edits]}) do
       results = Article.find(:all, :page => {:size => 10, :auto => true})
     end
     assert_equal 10, results.page_size

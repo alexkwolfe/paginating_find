@@ -1,3 +1,8 @@
+2007-7-24
+* Fixed a bug in handling the HAVING having clause. Thanks to Daniel Aborg for the patch!
+* Added support for Array#extract_options! added to Rails edge (9087).  Thanks to Alex Payne!
+* Tests no longer use with_scope since it became protected in Rails edge.
+
 2007-5-7
 * Now uses alias_method_chain. Thanks to Jeremy Larkin for the patch.
 

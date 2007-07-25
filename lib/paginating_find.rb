@@ -47,7 +47,11 @@ module PaginatingFind
     #                           :auto => true})
     #
     def find_with_pagination(*args)
-      options = extract_options_from_args!(args) 
+      options = if args.respond_to?(:extract_options!)
+        args.extract_options!
+      else
+        extract_options_from_args!(args)
+      end
       page_options = options.delete(:page) || (args.delete(:page) ? {} : nil)
       if page_options
         # The :page option was specified, so page the query results
@@ -111,8 +115,11 @@ module PaginatingFind
       scope = scope(:find)
       group = options[:group] || (scope ? scope[:group] : nil)
       if group
-        having = group.split(/HAVING/i)
-        rtn[:having] = having[1] if having.size == 2 # 'HAVING' was tacked on to the :group option.
+        having = group.split(/\s+HAVING\s+/i)
+        if having.size == 2 # 'HAVING' was tacked on to the :group option.
+          rtn[:group] = having[0]
+          rtn[:having] = having[1]
+        end
       end
       
       # Eliminate count options like :order, :limit, :offset.
