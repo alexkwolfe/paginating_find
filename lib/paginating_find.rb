@@ -7,6 +7,7 @@ module PaginatingFind
     base.extend(ClassMethods)
     base.class_eval do
       class << self
+        VALID_FIND_OPTIONS << :page
         alias_method_chain :find, :pagination
       end
     end
@@ -100,10 +101,6 @@ module PaginatingFind
         # usual AR::Base#find method
         find_without_pagination(*(args << options))
       end
-    end
-    
-    def validate_find_options(options)
-      options.assert_valid_keys [:page, :conditions, :include, :joins, :limit, :offset, :order, :select, :readonly, :group]
     end
     
     def collect_count_options(options)
