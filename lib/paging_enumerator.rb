@@ -131,6 +131,10 @@ class PagingEnumerator
     each { |e| array << e }
     array
   end
+  
+  def to_xml
+    to_a.to_xml
+  end
 
   # Load the next page using the callback
   def load_page
