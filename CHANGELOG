@@ -1,3 +1,6 @@
+2007-8-25
+* PagingEnumerator#each now returns self.  Thanks to Takeru Sasaki.
+
 2007-8-24
 * No longer overwrite the AR #validate_find_options method. Instead just append :page to VALID_FIND_OPTIONS. Thanks for the suggestion Pratik.
 

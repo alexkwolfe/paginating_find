@@ -53,6 +53,7 @@ class PagingEnumerator
     end
     # force usage of next_page method
     self.page = self.page - 1
+    self
   end
   
   def move!(page)
