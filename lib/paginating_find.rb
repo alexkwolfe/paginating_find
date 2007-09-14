@@ -107,6 +107,14 @@ module PaginatingFind
       rtn = {}.merge(options)
       rtn[:select] = "#{table_name}.#{primary_key}"
       
+      # If original :select includes the distinct keyword, then
+      # also include it in the count query
+      if rtn[:select].to_s.index(/\s*DISTINCT\s+/i) != nil
+        rtn[:select] = "DISTINCT #{table_name}.#{primary_key}"
+      else
+        rtn[:select] = "#{table_name}.#{primary_key}"
+      end
+      
       # AR::Base#find does not support :having, but some folks tack it on to the :group option,
       # and it is supported by calculations, so we'll support it here.
       scope = scope(:find)

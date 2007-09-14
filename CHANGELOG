@@ -1,3 +1,6 @@
+2007-9-14
+* Count query now respects the distinct keyword if it is included in the :select option.  Thanks to Luke Pearce.
+
 2007-8-25
 * PagingEnumerator#each now returns self.  Thanks to Takeru Sasaki.
 * Addeed #to_xml to the PagingEnumerator.
