@@ -1,3 +1,6 @@
+2007-11-13
+* Removed extraneous statement from collect_count_options. Thanks to Wolfgang Postler.
+
 2007-9-14
 * Count query now respects the distinct keyword if it is included in the :select option.  Thanks to Luke Pearce.
 

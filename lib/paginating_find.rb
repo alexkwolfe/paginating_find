@@ -105,7 +105,6 @@ module PaginatingFind
     
     def collect_count_options(options)
       rtn = {}.merge(options)
-      rtn[:select] = "#{table_name}.#{primary_key}"
       
       # If original :select includes the distinct keyword, then
       # also include it in the count query
