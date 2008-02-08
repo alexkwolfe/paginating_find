@@ -63,6 +63,7 @@ module PaginatingFind
         
         # Specify :count to prevent a count query.
         unless (count = page_options.delete(:count))
+          original_table_name = self.table_name
           count = count(collect_count_options(options))
           count = count.length if options[:group]
         end
@@ -106,12 +107,14 @@ module PaginatingFind
     def collect_count_options(options)
       rtn = {}.merge(options)
       
+      table = options[:from] || table_name 
+      
       # If original :select includes the distinct keyword, then
       # also include it in the count query
       if rtn[:select].to_s.index(/\s*DISTINCT\s+/i) != nil
-        rtn[:select] = "DISTINCT #{table_name}.#{primary_key}"
+        rtn[:select] = "DISTINCT #{table}.#{primary_key}"
       else
-        rtn[:select] = "#{table_name}.#{primary_key}"
+        rtn[:select] = "#{table}.#{primary_key}"
       end
       
       # AR::Base#find does not support :having, but some folks tack it on to the :group option,

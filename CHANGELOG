@@ -1,3 +1,6 @@
+2008-02-08
+* Count query now uses the :from find option, if specified. Thanks to Rich Wertz.
+
 2007-11-13
 * Removed extraneous statement from collect_count_options. Thanks to Wolfgang Postler.
 
