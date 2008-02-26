@@ -23,7 +23,7 @@ module PaginatingFind
 
       if options[:always_show_anchors] && !window.include?(paginator.first_page)
         html << yield(paginator.first_page)
-        html << ' ... ' unless window.first - 1 == paginator.first_page
+        html << ' ... ' unless window.empty? || (window.first - 1 == paginator.first_page)
         html << ' '
       end
 
@@ -36,8 +36,8 @@ module PaginatingFind
         html << ' '
       end
 
-      if options[:always_show_anchors] && !window.include?(paginator.last_page)
-        html << ' ... ' unless window.last + 1 == paginator.last_page
+      if options[:always_show_anchors] && !window.include?(paginator.last_page) && paginator.first_page != paginator.last_page
+        html << ' ... ' unless window.empty? || (window.last + 1 == paginator.last_page)
         html << yield(paginator.last_page)
       end
 

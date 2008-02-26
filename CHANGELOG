@@ -1,3 +1,6 @@
+2008-02-26
+* Fixed page out-of-range bug, and another small bug when only one page exists, in paginating_links_helper.  Thanks to Pawel Stradomski.
+
 2008-02-08
 * Count query now uses the :from find option, if specified. Thanks to Rich Wertz.
 
